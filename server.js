@@ -88,7 +88,6 @@ app.action('song_action', async ({ ack, body, context }) => {
       songDetails[0].contentDetails.duration
     ),
     requestedBy: body['user']['name'],
-    createdAt: new Date(),
     force: force,
     votes: [],
     ts: null

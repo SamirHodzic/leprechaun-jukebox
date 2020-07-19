@@ -81,7 +81,7 @@ exports.getSongs = callback => {
       .db(dbName)
       .collection('songs')
       .find({}, {})
-      .sort({ createdAt: 1 })
+      .sort({ _id: 1 })
       .toArray()
       .then(songs => {
         callback(songs);
