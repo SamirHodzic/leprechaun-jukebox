@@ -1,6 +1,22 @@
-# leprechaun-jukebox
+<img src="https://github.com/SamirHodzic/leprechaun-jukebox/blob/master/src/assets/logo.png" alt="logo" width="400"/>
 
-> jukebox
+# Leprechaun Jukebox
+> Leprechaun Jukebox is a modern day jukebox. 
+
+## What is Leprechaun Jukebox?
+
+Leprechaun Jukebox is a Slack app that allows you to contribute making playlist together with other Slack users. 
+
+Create your office playlist collaboratively via Slack.
+Search for tracks, artists and albums using the commands you are already familiar with; and add the tracks you love to your playlist.
+
+Leprechaun Jukebox also allows you and your team to control playlist by voting for next songs, donating for instant addition or donating to force everyone to listen your song next.
+
+## How it works?
+Want to know all the cool stuff you can do with Leprechaun Jukebox? 
+Check out the how it works by launching it through global shortcut.
+
+**DEMO**: Check playlist and listen it here **[Leprechaun Jukebox](https://leprechaun-jukebox.herokuapp.com)**!
 
 ## Build Setup
 
