@@ -82,7 +82,7 @@ exports.createSongMessage = (song, user) => {
           song.duration
         } \n\n\n\n\n${
           song.force ? 'Forced' : 'Added'
-        } by <@${user}>   :sunglasses: :star:   Listen here: <http://google.com|Leprechaun Jukebox>`
+        } by <@${user}>   :sunglasses: :star:   Listen here: <${process.env.HOSTNAME}|Leprechaun Jukebox>`
       },
       accessory: {
         type: 'image',
@@ -106,7 +106,7 @@ exports.createSongVotingMessage = (song, user) => {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: `:notes:  *${song.title}*  :notes: \nDuration: ${song.duration} \n\n\nRequested by <@${user}>   :sunglasses: :star:   Listen here: <http://google.com|Leprechaun Jukebox>`
+        text: `:notes:  *${song.title}*  :notes: \nDuration: ${song.duration} \n\n\nRequested by <@${user}>   :sunglasses: :star:   Listen here: <${process.env.HOSTNAME}|Leprechaun Jukebox>`
       },
       accessory: {
         type: 'image',

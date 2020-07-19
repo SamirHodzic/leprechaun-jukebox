@@ -209,6 +209,6 @@ io.on('connection', socket => {
 });
 
 (async () => {
-  await app.start(process.env.SERVICE_PORT || 3000);
+  await app.start(process.env.PORT || 3000);
   console.log('⚡️ leprechaun-jukebox is running! ⚡️');
 })();
