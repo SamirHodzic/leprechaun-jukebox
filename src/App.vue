@@ -9,7 +9,7 @@
               @ended="songEnded"
               v-if="currentSong"
               :video-id="currentSong.videoId"
-              :player-vars="{ autoplay: 1, controls: 1, showinfo: 0, cc_load_policy: 3, start: 0 }"
+              :player-vars="{ autoplay: 1, controls: 0, showinfo: 0, cc_load_policy: 3, start: 0 }"
             />
           </div>
         </div>
