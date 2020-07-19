@@ -1,0 +1,48 @@
+{
+  "name": "leprechaun-jukebox",
+  "version": "0.1.0",
+  "author": "SamirHodzic",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "build": "npm run build:server && npm run build:client",
+    "build:client": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "build:server": "cross-env NODE_ENV=production webpack --config webpack.server.config.js --progress --hide-modules"
+  },
+  "dependencies": {
+    "@slack/bolt": "^2.1.1",
+    "async": "^3.2.0",
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.5.9",
+    "redis": "^3.0.2",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
+    "vue": "^2.5.11",
+    "vue-server-renderer": "^2.6.11",
+    "vue-youtube-embed": "^2.2.2"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "cross-env": "^5.0.5",
+    "css-loader": "^0.28.7",
+    "file-loader": "^1.1.4",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "uglifyjs-webpack-plugin": "^1.1.6",
+    "vue-loader": "^13.0.5",
+    "vue-ssr-webpack-plugin": "^3.0.0",
+    "vue-template-compiler": "^2.4.4",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.9.1"
+  }
+}
