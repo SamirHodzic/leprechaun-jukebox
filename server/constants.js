@@ -125,5 +125,40 @@ module.exports = {
         }
       }
     ]
+  },
+  app_home: {
+    type: 'home',
+    blocks: [
+      {
+        type: 'image',
+        image_url:
+          'https://i.ibb.co/7JM1x6M/logo.png',
+        alt_text: 'inspiration'
+      },
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text:
+            '*What is Leprechaun Jukebox?*\n\nLeprechaun Jukebox is a Slack app that allows you to contribute making playlist together with other Slack users.\nLeprechaun Jukebox is a modern day jukebox. Create your office playlist collaboratively via Slack.\nSearch for tracks, artists and albums using the commands you are already familiar with; and add the tracks you love to your playlist.\nLeprechaun Jukebox also allows you and your team to control playlist by voting for next songs, donating for instant addition or donating to force everyone to listen your song next.'
+        }
+      },
+      {
+        type: 'divider'
+      },
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text:
+            `*How it works?*\n\nWant to know all the cool stuff you can do with Leprechaun Jukebox? Check out the how it works by launching it through global shortcut. Check playlist and listen it here <${process.env.HOSTNAME}|Leprechaun Jukebox>`
+        }
+      },
+      {
+        type: 'image',
+        image_url: 'https://i.ibb.co/GkQVpHb/global-shortcut.png',
+        alt_text: 'inspiration'
+      }
+    ]
   }
 };

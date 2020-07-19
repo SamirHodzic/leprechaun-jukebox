@@ -30,6 +30,18 @@ receiver.router.get('*', (req, res) => {
   bundleRenderer.renderToStream({ url: req.path }).pipe(res);
 });
 
+app.event('app_home_opened', async ({ event, context }) => {
+  try {
+    await app.client.views.publish({
+      token: context.botToken,
+      user_id: event.user,
+      view: constants.app_home
+    });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 app.shortcut('request_song', async ({ shortcut, ack, context, client }) => {
   try {
     await ack();
