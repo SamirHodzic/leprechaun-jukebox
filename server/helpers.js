@@ -80,7 +80,7 @@ exports.createSongMessage = (song, user) => {
         type: 'mrkdwn',
         text: `:notes:  *${song.title}*  :notes: \nDuration: ${
           song.duration
-        } \n\n\n\n\n${
+        } \n\n\n${
           song.force ? 'Forced' : 'Added'
         } by <@${user}>   :sunglasses: :star:   Listen here: <${process.env.HOSTNAME}|Leprechaun Jukebox>`
       },
