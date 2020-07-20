@@ -18,17 +18,55 @@ Check out the how it works by launching it through global shortcut.
 
 **DEMO**: Check playlist and listen it here **[Leprechaun Jukebox](https://leprechaun-jukebox.herokuapp.com)**!
 
-## Build Setup
+## Setup
 
-``` bash
-# install dependencies
-npm install
+### Slack
 
-# serve with hot reload at localhost:8080
-npm run dev
+1. Create a new Slack app https://api.slack.com/apps?new_app=1
 
-# build for production with minification
-npm run build
+2. Enable and add **Shortcut** with `request_song` Callback ID for global shortcut interactivity
+
+3. Enable **Event Subscriptions** and **Home Tab**, create bot event `app_home_opened` for bot pages profile
+
+4. Install the app to your workspace
+
+5. Invite your bot user to a channel
+
+6. Rename `.env.example` to `.env` and update the variables with your tokens / client / default channel / mongo host
+
+### Application
+
+1. Clone the project:
+```shell
+$ git clone https://github.com/SamirHodzic/leprechaun-jukebox
+$ cd leprechaun-jukebox
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+2. Install dependencies described in the `package.json`:
+``` shell
+$ npm install
+```
+
+3. Build client/server parts of application:
+```shell
+$ npm run build
+```
+
+4. Start application:
+```shell
+$ npm start
+```
+
+Visit http://localhost:3000 and play around!
+
+### Technology stack used
+
+- Javascript
+- Express
+- Slack Bolt
+- MongoDB
+- Socket.io
+- Vue.js (SSR)
+
+## License
+[MIT](https://github.com/SamirHodzic/leprechaun-jukebox/blob/master/LICENSE)
