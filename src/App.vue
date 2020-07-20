@@ -6,6 +6,8 @@
           <img class="logo" src="./assets/logo.png" />
           <div class="player">
             <youtube
+              :player-width="width"
+              :player-height="height"
               @ended="songEnded"
               v-if="currentSong"
               :video-id="currentSong.videoId"
@@ -31,7 +33,8 @@
           </div>
           <span class="footer">
             Made with
-            <span class="icon">&#10084;</span> by samir.hodzic
+            <span class="icon">&#10084;</span> by
+            <a href="https://github.com/SamirHodzic">samir.hodzic</a>
           </span>
         </div>
       </div>
@@ -45,6 +48,8 @@ export default {
   name: 'app',
   data() {
     return {
+      width: 640,
+      height: 360,
       force: false,
       songs: [],
       currentSong: {},
@@ -113,6 +118,25 @@ export default {
       this.songs.forEach(song => {
         song.force = false;
       });
+    });
+
+    if (document.body.offsetWidth <= 1088) {
+      const player = document.getElementsByClassName('player')[0];
+      setTimeout(() => {
+        this.width = player.offsetWidth;
+        this.height = player.offsetHeight;
+      }, 500);
+    }
+
+    window.addEventListener('resize', () => {
+      if (document.body.offsetWidth <= 1088) {
+        const player = document.getElementsByClassName('player')[0];
+        this.width = player.offsetWidth;
+        this.height = player.offsetHeight;
+      } else {
+        this.width = 640;
+        this.height = 360;
+      }
     });
   }
 };
