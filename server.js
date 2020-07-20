@@ -21,6 +21,7 @@ const bundleRenderer = createBundleRenderer(
 );
 const constants = require('./server/constants');
 const youtube = require('./server/yt-api');
+const leprechaun = require('./server/leprechaun-api');
 const helpers = require('./server/helpers');
 const storage = require('./server/storage');
 let forcedTimer = 0;
@@ -83,10 +84,50 @@ app.view('song_chooser', async ({ ack, body, view, context }) => {
 app.action('song_action', async ({ ack, body, context }) => {
   await ack();
 
-  const songAction = body['actions'][0]['value'].split('&videoId=');
-  const coins = songAction[0];
-  const force = +coins === 5;
-  const songId = songAction[1];
+  const songAction = body['actions'][0]['value'].split('&');
+  const coins = songAction[0],
+    songId = songAction[1],
+    force = +coins === 5;
+
+  if (coins > 0) {
+    let senderEmail, randomEmail;
+
+    try {
+      let res = await app.client.users.info({
+        token: context.botToken,
+        user: body['user']['id']
+      });
+      senderEmail = res.user.profile.email;
+    } catch (error) {
+      console.error(error);
+    }
+
+    try {
+      let res = await app.client.users.list({
+        token: context.botToken,
+        limit: 15
+      });
+      randomEmail = helpers.pickRandomUser(res.members, senderEmail);
+    } catch (error) {
+      console.error(error);
+    }
+
+    // let res = await leprechaun.sendCoins(senderEmail, randomEmail, coins);
+
+    // if (!res) {
+    //   try {
+    //     await app.client.views.update({
+    //       token: context.botToken,
+    //       view_id: body.view.id,
+    //       view: constants.leprechaun_error
+    //     });
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+
+    //   return;
+    // }
+  }
 
   let songDetails = await youtube.songDetails(songId);
   let song = {

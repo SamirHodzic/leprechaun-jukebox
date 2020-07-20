@@ -41,7 +41,7 @@ module.exports = {
           action_id: 'coin_amount',
           placeholder: {
             type: 'plain_text',
-            text: 'Select amount of coins you want to throw for song'
+            text: 'Select amount of coins you want to randomly throw for song'
           },
           options: [
             {
@@ -54,7 +54,7 @@ module.exports = {
             {
               text: {
                 type: 'plain_text',
-                text: '1 coin'
+                text: '1 coin (Song is added to playlist without approval)'
               },
               value: '1'
             },
@@ -92,7 +92,7 @@ module.exports = {
         text: {
           type: 'mrkdwn',
           text:
-            'If song from search result is one you looking for, click "Add to jukebox"'
+            'If song from search result is one you are looking for, click "Add to jukebox"'
         }
       },
       {
@@ -122,6 +122,28 @@ module.exports = {
           type: 'mrkdwn',
           text:
             'Congratulations, your song is being approved and will be soon part of our playlist.  :notes::notes:'
+        }
+      }
+    ]
+  },
+  leprechaun_error: {
+    type: 'modal',
+    callback_id: 'success',
+    title: {
+      type: 'plain_text',
+      text: 'Leprechaun Jukebox'
+    },
+    close: {
+      type: 'plain_text',
+      text: 'Close'
+    },
+    blocks: [
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text:
+            'Something went wrong while transfering your coins below rainbow :cry:\nPlease try again or contact support.'
         }
       }
     ]

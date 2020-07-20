@@ -24,6 +24,21 @@ exports.convertYoutubeDurationToSeconds = duration => {
   return hours * 3600 + minutes * 60 + seconds;
 };
 
+exports.pickRandomUser = (users, senderEmail) => {
+  for (let i = 0; i < users.length; i++) {
+    let user = users[i];
+    if (
+      !user.is_bot &&
+      !user.deleted &&
+      !user.name != 'slackbot' &&
+      user.profile.email &&
+      user.profile.email != senderEmail
+    ) {
+      return user;
+    }
+  }
+};
+
 exports.songSearchViewBlock = (songs, coins) => {
   let blocks = [];
 
@@ -57,7 +72,7 @@ exports.songSearchViewBlock = (songs, coins) => {
             type: 'plain_text',
             text: 'Add to jukebox'
           },
-          value: `${coins}&videoId=${song.id.videoId}`,
+          value: `${coins}&${song.id.videoId}`,
           action_id: 'song_action'
         }
       ]
@@ -82,7 +97,9 @@ exports.createSongMessage = (song, user) => {
           song.duration
         } \n\n\n${
           song.force ? 'Forced' : 'Added'
-        } by <@${user}>   :sunglasses: :star:   Listen here: <${process.env.HOSTNAME}|Leprechaun Jukebox>`
+        } by <@${user}>   :sunglasses: :star:   Listen here: <${
+          process.env.HOSTNAME
+        }|Leprechaun Jukebox>`
       },
       accessory: {
         type: 'image',
