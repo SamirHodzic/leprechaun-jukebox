@@ -153,9 +153,8 @@ module.exports = {
     blocks: [
       {
         type: 'image',
-        image_url:
-          'https://i.ibb.co/7JM1x6M/logo.png',
-        alt_text: 'inspiration'
+        image_url: 'https://i.ibb.co/7JM1x6M/logo.png',
+        alt_text: 'logo'
       },
       {
         type: 'section',
@@ -172,14 +171,13 @@ module.exports = {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text:
-            `*How it works?*\n\nWant to know all the cool stuff you can do with Leprechaun Jukebox? Check out the how it works by launching it through global shortcut. Check playlist and listen it here <${process.env.HOSTNAME}|Leprechaun Jukebox>`
+          text: `*How it works?*\n\nWant to know all the cool stuff you can do with Leprechaun Jukebox? Check out the how it works by launching it through global shortcut. Check playlist and listen it here <${process.env.HOSTNAME}|Leprechaun Jukebox>.`
         }
       },
       {
         type: 'image',
         image_url: 'https://i.ibb.co/GkQVpHb/global-shortcut.png',
-        alt_text: 'inspiration'
+        alt_text: 'shortcut'
       }
     ]
   }

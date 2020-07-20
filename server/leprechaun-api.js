@@ -5,8 +5,8 @@ const txEndpoint = '/api/slack/transactions';
 exports.sendCoins = async (sender, random, coins) => {
   const request = {
     transaction: {
-      sender_email: 'leprechaun.admin@klika.ba',
-      receiver_email: 'emrah.dautbegovic@klika.ba',
+      sender_email: sender,
+      receiver_email: random,
       amount: coins,
       values: ['contribute', 'music'],
       message: 'Make it rain! | Leprechaun Jukebox'

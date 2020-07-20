@@ -7,4 +7,4 @@ export default context => {
       render: h => h(App)
     })
   );
-}
+};
