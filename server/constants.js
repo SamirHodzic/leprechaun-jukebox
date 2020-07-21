@@ -47,14 +47,14 @@ module.exports = {
             {
               text: {
                 type: 'plain_text',
-                text: '0 coins (Song needs to be approved by channel members)'
+                text: '0  -  Song needs to be approved by channel members'
               },
               value: '0'
             },
             {
               text: {
                 type: 'plain_text',
-                text: '1 coin (Song is added to playlist without approval)'
+                text: '1  -  Song is added to playlist without approval'
               },
               value: '1'
             },
@@ -62,7 +62,7 @@ module.exports = {
               text: {
                 type: 'plain_text',
                 text:
-                  '5 coins (Force this song to play to all current Jukebox listeners)'
+                  '5  -  Force this song to play to all current Jukebox listeners'
               },
               value: '5'
             }

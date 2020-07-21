@@ -8,7 +8,7 @@ exports.sendCoins = async (sender, random, coins) => {
       sender_email: sender,
       receiver_email: random,
       amount: coins,
-      values: ['contribute', 'music'],
+      values: ['giveBack', 'beAFriend'],
       message: 'Make it rain! | Leprechaun Jukebox'
     }
   };

@@ -105,28 +105,38 @@ app.action('song_action', async ({ ack, body, context }) => {
     try {
       let res = await app.client.users.list({
         token: context.botToken,
-        limit: 15
+        limit: 10
       });
       randomEmail = helpers.pickRandomUser(res.members, senderEmail);
     } catch (error) {
       console.error(error);
     }
 
-    // let res = await leprechaun.sendCoins(senderEmail, randomEmail, coins);
+    let res = await leprechaun.sendCoins(senderEmail, randomEmail, coins);
 
-    // if (!res) {
-    //   try {
-    //     await app.client.views.update({
-    //       token: context.botToken,
-    //       view_id: body.view.id,
-    //       view: constants.leprechaun_error
-    //     });
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
+    if (!res) {
+      try {
+        await app.client.views.update({
+          token: context.botToken,
+          view_id: body.view.id,
+          view: constants.leprechaun_error
+        });
+      } catch (error) {
+        console.error(error);
+      }
 
-    //   return;
-    // }
+      return;
+    }
+  }
+
+  try {
+    await app.client.views.update({
+      token: context.botToken,
+      view_id: body.view.id,
+      view: constants.song_action
+    });
+  } catch (error) {
+    console.error(error);
   }
 
   let songDetails = await youtube.songDetails(songId);
@@ -178,16 +188,6 @@ app.action('song_action', async ({ ack, body, context }) => {
     } catch (error) {
       console.error(error);
     }
-  }
-
-  try {
-    await app.client.views.update({
-      token: context.botToken,
-      view_id: body.view.id,
-      view: constants.song_action
-    });
-  } catch (error) {
-    console.error(error);
   }
 });
 
