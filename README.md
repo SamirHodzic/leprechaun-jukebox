@@ -30,9 +30,9 @@ Check out the how it works by launching it through global shortcut.
 
 4. Install the app to your workspace
 
-5. Invite your bot user to a channel
+5. Invite bot user to a channel where it will show added songs or votings
 
-6. Rename `.env.example` to `.env` and update the variables with your tokens / client / default channel / mongo host
+6. Rename `.env.example` to `.env` and update the variables with your tokens / client / specific channel / mongodb host
 
 ### Application
 
@@ -66,7 +66,7 @@ Visit http://localhost:3000 and play around!
 - Slack Bolt
 - MongoDB
 - Socket.io
-- Vue.js (SSR)
+- Vue.js
 
 ## License
 [MIT](https://github.com/SamirHodzic/leprechaun-jukebox/blob/master/LICENSE)
