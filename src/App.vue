@@ -30,6 +30,9 @@
               <span class="username">@{{ song.requestedBy }}</span>
               <span class="time">{{ song.duration }}</span>
             </div>
+            <div class="song-item" v-if="songs.length < 1">
+              <a class="song-title">Playlist is currently empty, please add something here!</a>
+            </div>
           </div>
           <span class="footer">
             Made with
@@ -96,6 +99,8 @@ export default {
       if (song.force) {
         this.force = true;
         if (!this.currentSong.force) this.currentSong = song;
+      } else if(this.songs.length === 1) {
+        this.currentSong = song;
       }
     });
     this.socket.on('first_playlist', data => {
