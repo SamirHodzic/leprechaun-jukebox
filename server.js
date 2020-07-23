@@ -112,21 +112,21 @@ app.action('song_action', async ({ ack, body, context }) => {
       console.error(error);
     }
 
-    let res = await leprechaun.sendCoins(senderEmail, randomEmail, coins);
+    // let res = await leprechaun.sendCoins(senderEmail, randomEmail, coins);
 
-    if (!res) {
-      try {
-        await app.client.views.update({
-          token: context.botToken,
-          view_id: body.view.id,
-          view: constants.leprechaun_error
-        });
-      } catch (error) {
-        console.error(error);
-      }
+    // if (!res) {
+    //   try {
+    //     await app.client.views.update({
+    //       token: context.botToken,
+    //       view_id: body.view.id,
+    //       view: constants.leprechaun_error
+    //     });
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
 
-      return;
-    }
+    //   return;
+    // }
   }
 
   try {
