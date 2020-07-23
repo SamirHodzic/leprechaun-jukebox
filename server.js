@@ -25,6 +25,7 @@ const leprechaun = require('./server/leprechaun-api');
 const helpers = require('./server/helpers');
 const storage = require('./server/storage');
 let forcedTimer = 0;
+let usersCounter = 0;
 
 receiver.router.use('/dist', express.static('dist'));
 receiver.router.get('*', (req, res) => {
@@ -262,12 +263,21 @@ function trackForced() {
 }
 
 io.on('connection', socket => {
+  usersCounter++;
+
   storage.getSongs(data => {
     socket.emit('first_playlist', {
       songs: data.songs,
       force: forcedTimer > 0,
       coins: data.coins
     });
+  });
+
+  io.emit('users_connected', usersCounter);
+
+  socket.on('disconnect', () => {
+    usersCounter--;
+    io.emit('users_connected', usersCounter);
   });
 });
 

@@ -64,6 +64,34 @@ body {
     .coins-counter {
       color: #fff;
       font-size: 35px;
+      padding-left: 5px;
+    }
+  }
+
+  .users {
+    position: absolute;
+    right: 7px;
+    bottom: 5px;
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 200px;
+    background: #000;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(250, 194, 76, 0.5) 55%,
+      #000
+    );
+    border-radius: 0 30px 30px 0;
+    .users-img {
+      width: 40px;
+    }
+    .users-counter {
+      color: #fff;
+      font-size: 35px;
+      padding-right: 10px;
     }
   }
 }

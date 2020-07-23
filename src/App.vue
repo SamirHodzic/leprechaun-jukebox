@@ -8,6 +8,10 @@
             <img class="coins-img" src="./assets/leprechaun-logo.png" />
             <span class="coins-counter">{{this.coins}}</span>
           </div>
+          <div class="users">
+             <span class="users-counter">{{this.usersCounter}}</span>
+             <img class="users-img" src="./assets/users-icon.png" />
+          </div>
           <div class="player">
             <youtube
               :player-width="width"
@@ -61,6 +65,7 @@ export default {
       coins: 0,
       songs: [],
       currentSong: {},
+      usersCounter: 0,
       socket: io.connect()
     };
   },
@@ -131,6 +136,9 @@ export default {
       this.songs.forEach((song) => {
         song.force = false;
       });
+    });
+    this.socket.on('users_connected', (counter) => {
+      this.usersCounter = counter;
     });
 
     if (document.body.offsetWidth <= 1088) {
