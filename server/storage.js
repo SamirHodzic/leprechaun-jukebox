@@ -27,26 +27,27 @@ exports.setVotingSong = song => {
   });
 };
 
-exports.findVotingSong = (videoId, callback) => {
+exports.findVotingSong = (voteAction, callback) => {
   MongoClient.connect(process.env.MONGO_ATLAS_URL, options, (_, client) => {
     client
       .db(dbName)
       .collection('songs_voting')
-      .findOne({ videoId: videoId }, (_, doc) => {
+      .findOne({ videoId: voteAction[0], hash: voteAction[1] }, (_, doc) => {
         callback(doc);
         client.close();
       });
   });
 };
 
-exports.updateVotingSong = (videoId, vote, callback) => {
+exports.updateVotingSong = (voteAction, vote, callback) => {
   MongoClient.connect(process.env.MONGO_ATLAS_URL, options, (_, client) => {
     client
       .db(dbName)
       .collection('songs_voting')
       .findOneAndUpdate(
         {
-          videoId: videoId
+          videoId: voteAction[0],
+          hash: voteAction[1]
         },
         { $push: { votes: vote } },
         { returnOriginal: false },
@@ -80,11 +81,17 @@ exports.getSongs = callback => {
     client
       .db(dbName)
       .collection('songs')
-      .find({}, {})
-      .sort({ _id: 1 })
-      .toArray()
-      .then(songs => {
-        callback(songs);
+      .aggregate([
+        {
+          $group: {
+            _id: null,
+            coins: { $sum: '$coins' },
+            songs: { $push: '$$ROOT' }
+          }
+        }
+      ])
+      .toArray((_, data) => {
+        callback(data.length > 0 ? data[0] : { songs: [], coins: 0 });
         client.close();
       });
   });

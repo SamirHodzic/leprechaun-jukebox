@@ -14,7 +14,7 @@ exports.convertYoutubeDuration = duration => {
 exports.convertYoutubeDurationToSeconds = duration => {
   let match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
 
-  match = match.slice(1).map(function(x) {
+  match = match.slice(1).map(x => {
     if (x != null) return x.replace(/\D/, '');
   });
 
@@ -123,7 +123,7 @@ exports.createSongVotingMessage = (song, user) => {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: `:notes:  *${song.title}*  :notes: \nDuration: ${song.duration} \n\n\nRequested by <@${user}>   :sunglasses: :star:   Listen here: <${process.env.HOSTNAME}|Leprechaun Jukebox>`
+        text: `:notes:  *${song.title}*  :notes: \nDuration: ${song.duration} \n\n\nRequested by <@${song.requestedBy}>   :sunglasses: :star:   Listen here: <${process.env.HOSTNAME}|Leprechaun Jukebox>`
       },
       accessory: {
         type: 'image',
@@ -153,7 +153,7 @@ exports.createSongVotingMessage = (song, user) => {
             type: 'plain_text',
             text: 'Yes'
           },
-          value: song.videoId,
+          value: `${song.videoId}&${song.hash}`,
           action_id: 'vote_action_1'
         },
         {
@@ -162,7 +162,7 @@ exports.createSongVotingMessage = (song, user) => {
             type: 'plain_text',
             text: 'No'
           },
-          value: song.videoId,
+          value: `${song.videoId}&${song.hash}`,
           action_id: 'vote_action_0'
         }
       ]

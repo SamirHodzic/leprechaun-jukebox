@@ -4,6 +4,10 @@
       <div class="container">
         <div class="left">
           <img class="logo" src="./assets/logo.png" />
+          <div class="coins">
+            <img class="coins-img" src="./assets/leprechaun-logo.png" />
+            <span class="coins-counter">{{this.coins}}</span>
+          </div>
           <div class="player">
             <youtube
               :player-width="width"
@@ -19,7 +23,7 @@
           <div class="playlist">
             <div
               class="song-item"
-              :class="{ 'active' : currentSong ? currentSong._id === song._id : false, 'disabled': force && !song.force, 'forced': song.force}"
+              :class="{ 'active' : currentSong ? currentSong.hash === song.hash : false, 'disabled': force && !song.force, 'forced': song.force}"
               v-for="song in songs"
               :key="song.videoId"
               v-on:click="playSong(song)"
@@ -54,6 +58,7 @@ export default {
       width: 640,
       height: 360,
       force: false,
+      coins: 0,
       songs: [],
       currentSong: {},
       socket: io.connect()
@@ -62,7 +67,7 @@ export default {
   methods: {
     songEnded: function() {
       let index = this.songs.findIndex(
-        song => song._id === this.currentSong._id
+        (song) => song.hash === this.currentSong.hash
       );
       if (this.force) {
         for (var i = index + 1; i < this.songs.length; i++) {
@@ -84,27 +89,30 @@ export default {
     },
     playSong: function(song) {
       if (
-        song._id === this.currentSong._id ||
+        song.hash === this.currentSong.hash ||
         song.videoId === this.currentSong.videoId ||
-        (this.force && !song.force)
+        this.force
       )
         return;
       this.currentSong = song;
     }
   },
   mounted() {
-    this.socket.on('new_song', song => {
+    this.socket.on('new_song', (song) => {
       this.songs.push(song);
+      this.coins += song.coins;
 
       if (song.force) {
         this.force = true;
         if (!this.currentSong.force) this.currentSong = song;
-      } else if(this.songs.length === 1) {
+      } else if (this.songs.length === 1) {
         this.currentSong = song;
       }
     });
-    this.socket.on('first_playlist', data => {
+    this.socket.on('first_playlist', (data) => {
+      this.coins = data.coins;
       this.songs = data.songs;
+
       if (data.force) {
         this.force = true;
         for (var i = 0; i < this.songs.length - 1; i++) {
@@ -117,10 +125,10 @@ export default {
         if (!this.currentSong.videoId) this.currentSong = this.songs[0];
       }
     });
-    this.socket.on('force_done', song => {
+    this.socket.on('force_done', (song) => {
       this.force = false;
       this.currentSong.force = false;
-      this.songs.forEach(song => {
+      this.songs.forEach((song) => {
         song.force = false;
       });
     });

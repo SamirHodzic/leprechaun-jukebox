@@ -129,12 +129,16 @@ app.action('song_action', async ({ ack, body, context }) => {
     // }
   }
 
+  let view_hash = null;
+
   try {
-    await app.client.views.update({
+    let update = await app.client.views.update({
       token: context.botToken,
       view_id: body.view.id,
       view: constants.song_action
     });
+
+    view_hash = update.view.hash;
   } catch (error) {
     console.error(error);
   }
@@ -153,7 +157,9 @@ app.action('song_action', async ({ ack, body, context }) => {
     requestedBy: body['user']['name'],
     force: force,
     votes: [],
-    ts: null
+    hash: view_hash,
+    ts: null,
+    coins: +coins
   };
 
   if (+coins === 0) {
@@ -202,7 +208,7 @@ app.action('vote_action_1', async ({ ack, body, context }) => {
 });
 
 function handleVote(body, context, val) {
-  const voteAction = body['actions'][0]['value'];
+  const voteAction = body['actions'][0]['value'].split('&');
   let vote = {
     vote: val,
     user: body['user']['name']
@@ -213,7 +219,7 @@ function handleVote(body, context, val) {
       if (songVoting.votes.find(o => o.user === vote.user)) return;
 
       storage.updateVotingSong(voteAction, vote, song => {
-        voteToNewSong(song, context, body);
+        voteToNewSong(song, context);
 
         if (song.votes.length === 5) {
           let success = song.votes.filter(vote => vote.vote == 1).length > 2;
@@ -228,14 +234,14 @@ function handleVote(body, context, val) {
   });
 }
 
-async function voteToNewSong(song, context, body) {
+async function voteToNewSong(song, context) {
   try {
     await app.client.chat.update({
       token: context.botToken,
       channel: process.env.JUKEBOX_CHANNEL,
       text: 'New song requested:',
       ts: song.ts,
-      blocks: helpers.createSongVotingMessage(song, body['user']['id'])
+      blocks: helpers.createSongVotingMessage(song)
     });
   } catch (error) {
     console.error(error);
@@ -256,8 +262,12 @@ function trackForced() {
 }
 
 io.on('connection', socket => {
-  storage.getSongs(songs => {
-    socket.emit('first_playlist', { songs: songs, force: forcedTimer > 0 });
+  storage.getSongs(data => {
+    socket.emit('first_playlist', {
+      songs: data.songs,
+      force: forcedTimer > 0,
+      coins: data.coins
+    });
   });
 });
 
